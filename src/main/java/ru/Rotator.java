@@ -3,6 +3,7 @@ package ru;
 public class Rotator {
     Rubic rubic;
     Cube[][][] cube;
+    Logger logger = new Logger();
 
     Face front;
     Face back;
@@ -130,50 +131,58 @@ public class Rotator {
 
     private void log(Colors color, boolean rev) {
         if (!rev) {
-            System.out.println(color.command);
+            logger.log(color.command);
         } else {
-            System.out.println(color.command + "'");
+            logger.log(color.command + "'");
         }
     }
 
+    public void init() {
+        logger.init();
+    }
+
+    public void printLog() {
+        logger.printLog();
+    }
+
     public Cube getCubeDF() {
-        return down.get.get(0, 1);
+        return cube[0][0][1];
     }
 
     public Cube getCubeDB() {
-        return down.get.get(2, 1);
+        return cube[0][2][1];
     }
 
     public Cube getCubeDL() {
-        return down.get.get(1, 0);
+        return cube[0][1][2];
     }
 
     public Cube getCubeDR() {
-        return down.get.get(1, 2);
+        return cube[0][1][0];
     }
 
     public Cube getCubeUF() {
-        return up.get.get(0, 1);
+        return cube[2][0][1];
     }
 
     public Cube getCubeUB() {
-        return up.get.get(2, 1);
+        return cube[2][2][1];
     }
 
     public Cube getCubeUL() {
-        return up.get.get(1, 0);
+        return cube[2][1][2];
     }
 
     public Cube getCubeUR() {
-        return up.get.get(1, 2);
+        return cube[2][1][0];
     }
 
     public Cube getCubeRF() {
-        return right.get.get(1, 0);
+        return cube[1][0][0];
     }
 
     public Cube getCubeRB() {
-        return right.get.get(1, 2);
+        return cube[1][2][2];
     }
 
     public void orientationWhiteCross() {
