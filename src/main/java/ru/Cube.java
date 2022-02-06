@@ -10,9 +10,9 @@ public class Cube {
     private Colors front = Colors.BLACK;
     private Colors back = Colors.BLACK;
 
-    int x;
-    int y;
-    int z;
+    private int x;
+    private int y;
+    private int z;
 
     boolean isRightPlace;
 

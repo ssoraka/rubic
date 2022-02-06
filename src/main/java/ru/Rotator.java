@@ -183,6 +183,38 @@ public class Rotator {
         return cube[1][2][0];
     }
 
+    public Cube getURF() {
+        return cube[2][0][0];
+    }
+
+    public Cube getURB() {
+        return cube[2][2][0];
+    }
+
+    public Cube getULF() {
+        return cube[2][0][2];
+    }
+
+    public Cube getULB() {
+        return cube[2][2][2];
+    }
+
+    public Cube getDRF() {
+        return cube[0][0][0];
+    }
+
+    public Cube getDRB() {
+        return cube[0][2][0];
+    }
+
+    public Cube getDLF() {
+        return cube[0][0][2];
+    }
+
+    public Cube getDLB() {
+        return cube[0][2][2];
+    }
+
     public void orientationWhiteCross() {
         int colors = 0;
         int rightPos = 0;
@@ -273,24 +305,122 @@ public class Rotator {
                 rubic.x();
                 continue;
             }
-            if (getUF().getUp() == Colors.WHITE && getUF().getFront() == right.getColor()) {
-                uRev();
-            }
-            if (getUB().getUp() == Colors.WHITE && getUB().getBack() == right.getColor()) {
-                u();
-            }
-            if (getUL().getUp() == Colors.WHITE && getUL().getLeft() == right.getColor()) {
-                u2();
-            }
-            if (getUR().getUp() == Colors.WHITE && getUR().getRight() == right.getColor()) {
-                r2();
-                getDR().setRightPlace(true);
-            }
+            whiteToDown();
             rubic.x();
         }
 
         if (!getDR().isRightPlace() || !getDL().isRightPlace() || !getDF().isRightPlace() || !getDB().isRightPlace()) {
             throw new RuntimeException("крест не собирается");
+        }
+    }
+
+
+    public void insertCorners() {
+        checkCorners();
+
+        while (!getDRF().isRightPlace() || !getDRB().isRightPlace()
+                || !getDLF().isRightPlace() || !getDLB().isRightPlace()) {
+            for (int i = 0; i < 4; i++) {
+                if (getDRF().isRightPlace()) {
+                    rubic.x();
+                    continue;
+                }
+                placeCornerFromUp();
+                rubic.x();
+            }
+
+            for (int i = 0; i < 4; i++) {
+                if (!getDRF().isRightPlace()) {
+                    rightHand();
+                    break ;
+                }
+                rubic.x();
+            }
+        }
+    }
+
+    public void rightHand() {
+        r();
+        u();
+        rRev();
+        uRev();
+    }
+
+    public void leftHand() {
+        fRev();
+        uRev();
+        f();
+        u();
+    }
+
+    public void placeCornerFromUp() {
+        int i = 0;
+        for (i = 0; i < 4; i++) {
+            if (getURF().hasColor(right.getColor())
+                    && getURF().hasColor(front.getColor())
+                    && getURF().hasColor(down.getColor())) {
+                break;
+            }
+            u();
+        }
+        if (i == 4){
+            return ;
+        }
+        if (getURF().getRight() == Colors.WHITE) {
+            rightHand();
+        } else if (getURF().getFront() == Colors.WHITE) {
+            leftHand();
+        } else {
+            rightHand();
+            rightHand();
+            rightHand();
+        }
+        getDRF().setRightPlace(true);
+        if (getDRF().getRight() != right.getColor()
+                || getDRF().getFront() != front.getColor()
+                || getDRF().getDown() != down.getColor()) {
+            throw new RuntimeException("косяк в проставлении угла");
+        }
+    }
+
+    public void checkCorners() {
+        if (getDRF().getRight() == right.getColor()
+                && getDRF().getFront() == front.getColor()
+                && getDRF().getDown() == down.getColor()) {
+            getDRF().setRightPlace(true);
+        }
+        if (getDLF().getLeft() == left.getColor()
+                && getDLF().getFront() == front.getColor()
+                && getDLF().getDown() == down.getColor()) {
+            getDLF().setRightPlace(true);
+        }
+        if (getDRB().getRight() == right.getColor()
+                && getDRB().getBack() == back.getColor()
+                && getDRB().getDown() == down.getColor()) {
+            getDRB().setRightPlace(true);
+        }
+        if (getDLB().getLeft() == left.getColor()
+                && getDLB().getBack() == front.getColor()
+                && getDLB().getDown() == down.getColor()) {
+            getDLB().setRightPlace(true);
+        }
+    }
+
+
+
+    private void whiteToDown() {
+        if (getUF().getUp() == Colors.WHITE && getUF().getFront() == right.getColor()) {
+            uRev();
+        }
+        if (getUB().getUp() == Colors.WHITE && getUB().getBack() == right.getColor()) {
+            u();
+        }
+        if (getUL().getUp() == Colors.WHITE && getUL().getLeft() == right.getColor()) {
+            u2();
+        }
+        if (getUR().getUp() == Colors.WHITE && getUR().getRight() == right.getColor()) {
+            r2();
+            getDR().setRightPlace(true);
         }
     }
 

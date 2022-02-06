@@ -1,15 +1,14 @@
 package ru;
 
-import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.UnaryOperator;
 
 public class Face {
-    FaceGetter get;
-    FaceSetter set;
-    UnaryOperator<Cube> rotFunc;
-    UnaryOperator<Cube> rotRevFunc;
-    Function<Cube, Colors> getColors;
+    private FaceGetter get;
+    private FaceSetter set;
+    private UnaryOperator<Cube> rotFunc;
+    private UnaryOperator<Cube> rotRevFunc;
+    private Function<Cube, Colors> getColors;
 
     public Face(FaceGetter get, FaceSetter set, UnaryOperator<Cube> rotFunc, UnaryOperator<Cube> rotRevFunc, Function<Cube, Colors> getColor) {
         this.get = get;
