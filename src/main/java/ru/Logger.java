@@ -1,9 +1,6 @@
 package ru;
 
-import java.util.ArrayList;
-import java.util.Deque;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 public class Logger {
     List<String> list = new ArrayList<>();

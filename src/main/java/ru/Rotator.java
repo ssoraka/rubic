@@ -30,8 +30,8 @@ public class Rotator {
 
         up = new Face((i, j) -> cube[2][i][j],
                 (i, j, c) -> cube[2][i][j] = c,
-                Cube::rotUp,
                 Cube::rotUpRev,
+                Cube::rotUp,
                 Cube::getUp);
 
         down = new Face((i, j) -> cube[0][i][j],
@@ -95,6 +95,12 @@ public class Rotator {
     public void d() {
         log(down.getColor(), false);
         down.rot();
+    }
+    public void d(int n) {
+        for (int i = 0; i < n; i++) {
+            log(down.getColor(), false);
+            down.rot();
+        }
     }
 
     public void dRev() {
@@ -246,7 +252,7 @@ public class Rotator {
             if (getCubeRF().getFront() == Colors.WHITE) {
                 rotYellow();
                 r();
-                if (getCubeDR().isRightPlace()) {
+                if (getCubeRF().isRightPlace()) {
                     rotYellow();
                     rRev();
                 }
@@ -254,7 +260,7 @@ public class Rotator {
             if (getCubeRB().getBack() == Colors.WHITE) {
                 rotYellow();
                 rRev();
-                if (getCubeDR().isRightPlace()) {
+                if (getCubeRF().isRightPlace()) {
                     rotYellow();
                     r();
                 }
@@ -282,7 +288,10 @@ public class Rotator {
 
         //опускаем вниз
         for (int i = 0; i < 4; i++) {
-            if (getCubeDR().isRightPlace()) continue;
+            if (getCubeDR().isRightPlace()) {
+                rubic.x();
+                continue;
+            }
             if (getCubeUF().getFront() == right.getColor()) {
                 uRev();
             }
@@ -296,6 +305,7 @@ public class Rotator {
                 r2();
                 getCubeDR().setRightPlace(true);
             }
+            rubic.x();
         }
     }
 
@@ -305,5 +315,13 @@ public class Rotator {
         }
     }
 
+    private int rotWhite() {
+        int i = 0;
+        while (getCubeDR().isRightPlace) {
+            d();
+            i++;
+        }
+        return i;
+    }
 
 }
