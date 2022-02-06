@@ -15,6 +15,7 @@ public class Logger {
 
     public void printLog() {
         Deque<String> queue = new LinkedList<>(list);
+        int size = 0;
         while (queue.size() > 0) {
             int count = 1;
             String command = queue.pop();
@@ -28,6 +29,8 @@ public class Logger {
             if (count == 3) System.out.println(command + "'");
             if (count == 2) System.out.println(2 + command);
             if (count == 1) System.out.println(command);
+            size++;
         }
+        System.out.println(size);
     }
 }

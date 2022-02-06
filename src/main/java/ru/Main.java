@@ -6,8 +6,6 @@ public class Main {
 
 
         Rotator rotator = new Rotator(rubic);
-
-
         rotator.dRev();
         rotator.dRev();
         rotator.r();
@@ -15,7 +13,11 @@ public class Main {
         rotator.u();
         rotator.d();
         rotator.r();
+        rotator.b();
+        rotator.u();
+        rotator.d();
         rotator.f();
+        rotator.l();
         rotator.b();
 //        rotator.r();
 //        rotator.rRev();
@@ -27,6 +29,7 @@ public class Main {
         rotator.orientationWhiteCross();
         rotator.insertCornersInFirstLayer();
         rotator.secondLayer();
+        rotator.thirdLayer();
         rotator.printLog();
 
         System.out.println(rubic.toString());

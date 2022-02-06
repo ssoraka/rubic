@@ -368,6 +368,153 @@ public class Rotator {
         }
     }
 
+    public void thirdLayer() {
+        yellowCross();
+        placeThirdCorners();
+        rotateYellowCorners();
+        finalStep();
+    }
+
+    private void yellowCross() {
+        int count = 0;
+        if (getUF().getUp() == Colors.YELLOW) count++;
+        if (getUB().getUp() == Colors.YELLOW) count++;
+        if (getUR().getUp() == Colors.YELLOW) count++;
+        if (getUL().getUp() == Colors.YELLOW) count++;
+        if (count == 4) return;
+        if (count < 2) {
+            f();
+            rightHand();
+            fRev();
+            yellowCross();
+            return;
+        }
+        if (getUF().getUp() == Colors.YELLOW && getUB().getUp() == Colors.YELLOW) {
+            rubic.x();
+        }
+        if (getUR().getUp() == Colors.YELLOW && getUL().getUp() == Colors.YELLOW) {
+            f();
+            rightHand();
+            fRev();
+        } else {
+            while (getUB().getUp() != Colors.YELLOW || getUL().getUp() != Colors.YELLOW) {
+                rubic.x();
+            }
+            f();
+            rightHand(2);
+            fRev();
+        }
+
+        if (getUF().getUp() != Colors.YELLOW || getUB().getUp() != Colors.YELLOW
+            || getUR().getUp() != Colors.YELLOW || getUL().getUp() != Colors.YELLOW) {
+            throw new RuntimeException("желтый крест не собрался");
+        }
+    }
+
+    private void placeThirdCorners() {
+        for (int i = 0; i < 4 && getRightThirdCornerCount() < 2 ; i++) {
+            u();
+        }
+        if (getRightThirdCornerCount() == 4) return;
+
+        for (int i = 0; i < 4; i++) {
+            if (getULF().hasColor(front.getColor()) && getULF().hasColor(up.getColor()) && getULF().hasColor(left.getColor()) &&
+                    getULB().hasColor(back.getColor()) && getULB().hasColor(up.getColor()) && getULB().hasColor(left.getColor())) {
+                break ;
+            }
+            rubic.x();
+        }
+
+        if (!getULF().hasColor(front.getColor()) || !getULF().hasColor(up.getColor()) || !getULF().hasColor(left.getColor()))  {
+            u();
+            rightHand(3);
+            leftHand(3);
+        }
+        rightHand(3);
+        leftHand(3);
+
+        for (int i = 0; i < 4 && getRightThirdCornerCount() < 4 ; i++) {
+            u();
+        }
+
+        if (getRightThirdCornerCount() != 4) {
+            throw new RuntimeException("не проставились желтые углы по своим местам");
+        }
+    }
+
+    private void rotateYellowCorners() {
+        rubic.y();
+        rubic.y();
+        for (int i = 0; i < 4 && getDRF().getDown() == Colors.YELLOW; i++) {
+            rubic.x();
+        }
+        for (int i = 0; i < 8; i++) {
+            while (getDRF().getDown() != Colors.YELLOW) {
+                rightHand(2);
+            }
+            d();
+        }
+        rubic.y();
+        rubic.y();
+
+        if (getURF().getUp() != Colors.YELLOW || getURB().getUp() != Colors.YELLOW
+                || getULF().getUp() != Colors.YELLOW || getULB().getUp() != Colors.YELLOW ) {
+            throw new RuntimeException("не собрался верх");
+        }
+    }
+
+    private void finalStep() {
+        for (int i = 0; i < 100 && (!haveCompleteLine() || !isComplete()); i++) {
+            rightHand();
+            rubic.x();
+            leftHand();
+            rubic.xRev();
+            rightHand(5);
+            rubic.x();
+            leftHand(5);
+            rubic.xRev();
+        }
+        if (!isComplete()) {
+            throw new RuntimeException("java.util.Date итоге что-то не собралось...");
+        }
+    }
+
+    private boolean haveCompleteLine() {
+        for (int i = 0; i < 4; i++) {
+            Colors color = front.getColor();
+            if (getURF().getFront() == color && getUF().getFront() == color && getULF().getFront() == color) {
+                return true;
+            }
+            rubic.x();
+        }
+        return false;
+    }
+
+    private boolean isComplete() {
+        if (getURF().getFront() != front.getColor() || getUF().getFront() != front.getColor()
+                || getULF().getFront() != front.getColor()) return false;
+        if (getURB().getBack() != back.getColor() || getUB().getBack() != back.getColor()
+                || getULB().getBack() != back.getColor()) return false;
+        if (getURF().getRight() != right.getColor() || getUR().getRight() != right.getColor()
+                || getURB().getRight() != right.getColor()) return false;
+        if (getULF().getLeft() != left.getColor() || getUL().getLeft() != left.getColor()
+                || getULB().getLeft() != left.getColor()) return false;
+        return true;
+    }
+
+    private int getRightThirdCornerCount() {
+        int count = 0;
+        if (getURF().hasColor(front.getColor()) && getURF().hasColor(up.getColor())
+                && getURF().hasColor(right.getColor())) count++;
+        if (getURB().hasColor(back.getColor()) && getURB().hasColor(up.getColor())
+                && getURB().hasColor(right.getColor())) count++;
+        if (getULF().hasColor(front.getColor()) && getULF().hasColor(up.getColor())
+                && getULF().hasColor(left.getColor())) count++;
+        if (getULB().hasColor(back.getColor()) && getULB().hasColor(up.getColor())
+                && getULB().hasColor(left.getColor())) count++;
+        return count;
+    }
+
     public void rightHand() {
         r();
         u();
@@ -375,11 +522,23 @@ public class Rotator {
         uRev();
     }
 
+    public void rightHand(int n) {
+        for (int i = 0; i < n; i++) {
+            rightHand();
+        }
+    }
+
     public void leftHand() {
         fRev();
         uRev();
         f();
         u();
+    }
+
+    public void leftHand(int n) {
+        for (int i = 0; i < n; i++) {
+            leftHand();
+        }
     }
 
     public void placeSecondFromUp() {
@@ -428,9 +587,7 @@ public class Rotator {
         } else if (getURF().getFront() == Colors.WHITE) {
             leftHand();
         } else {
-            rightHand();
-            rightHand();
-            rightHand();
+            rightHand(3);
         }
         getDRF().setRightPlace(true);
         if (getDRF().getRight() != right.getColor()
