@@ -183,6 +183,14 @@ public class Rotator {
         return cube[1][2][0];
     }
 
+    public Cube getLF() {
+        return cube[1][0][2];
+    }
+
+    public Cube getLB() {
+        return cube[1][2][2];
+    }
+
     public Cube getURF() {
         return cube[2][0][0];
     }
@@ -315,23 +323,44 @@ public class Rotator {
     }
 
 
-    public void insertCorners() {
+    public void insertCornersInFirstLayer() {
         checkCorners();
 
         while (!getDRF().isRightPlace() || !getDRB().isRightPlace()
                 || !getDLF().isRightPlace() || !getDLB().isRightPlace()) {
             for (int i = 0; i < 4; i++) {
-                if (getDRF().isRightPlace()) {
-                    rubic.x();
-                    continue;
+                if (!getDRF().isRightPlace()) {
+                    placeCornerFromUp();
                 }
-                placeCornerFromUp();
                 rubic.x();
             }
 
             for (int i = 0; i < 4; i++) {
                 if (!getDRF().isRightPlace()) {
                     rightHand();
+                    break ;
+                }
+                rubic.x();
+            }
+        }
+    }
+
+    public void secondLayer() {
+        checkSeconds();
+
+        while (!getRF().isRightPlace() || !getRB().isRightPlace()
+                || !getLF().isRightPlace() || !getLB().isRightPlace()) {
+            for (int i = 0; i < 4; i++) {
+                if (!getRF().isRightPlace()) {
+                    placeSecondFromUp();
+                }
+                rubic.x();
+            }
+
+            for (int i = 0; i < 4; i++) {
+                if (!getRF().isRightPlace()) {
+                    rightHand();
+                    leftHand();
                     break ;
                 }
                 rubic.x();
@@ -353,6 +382,35 @@ public class Rotator {
         u();
     }
 
+    public void placeSecondFromUp() {
+        if (getUF().hasColor(front.getColor()) && getUF().hasColor(right.getColor())) {
+            ;
+        } else if (getUB().hasColor(front.getColor()) && getUB().hasColor(right.getColor())) {
+            u2();
+        } else if (getUR().hasColor(front.getColor()) && getUR().hasColor(right.getColor())) {
+            u();
+        } else if (getUL().hasColor(front.getColor()) && getUL().hasColor(right.getColor())) {
+            uRev();
+        } else {
+            return;
+        }
+
+        if (getUF().getFront() == front.getColor()) {
+            u();
+            rightHand();
+            leftHand();
+        } else {
+            u2();
+            leftHand();
+            rightHand();
+        }
+
+        getRF().setRightPlace(true);
+        if (getRF().getRight() != right.getColor() || getRF().getFront() != front.getColor()) {
+            throw new RuntimeException("косяк в детальки второго уровня");
+        }
+    }
+
     public void placeCornerFromUp() {
         int i = 0;
         for (i = 0; i < 4; i++) {
@@ -363,9 +421,8 @@ public class Rotator {
             }
             u();
         }
-        if (i == 4){
-            return ;
-        }
+        if (i == 4) return ;
+
         if (getURF().getRight() == Colors.WHITE) {
             rightHand();
         } else if (getURF().getFront() == Colors.WHITE) {
@@ -406,7 +463,24 @@ public class Rotator {
         }
     }
 
-
+    public void checkSeconds() {
+        if (getRF().getRight() == right.getColor()
+                && getRF().getFront() == front.getColor()) {
+            getRF().setRightPlace(true);
+        }
+        if (getLF().getLeft() == left.getColor()
+                && getLF().getFront() == front.getColor()) {
+            getLF().setRightPlace(true);
+        }
+        if (getRB().getRight() == right.getColor()
+                && getRB().getBack() == back.getColor()) {
+            getRB().setRightPlace(true);
+        }
+        if (getLB().getLeft() == left.getColor()
+                && getLB().getBack() == back.getColor()) {
+            getLB().setRightPlace(true);
+        }
+    }
 
     private void whiteToDown() {
         if (getUF().getUp() == Colors.WHITE && getUF().getFront() == right.getColor()) {

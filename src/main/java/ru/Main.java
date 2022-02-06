@@ -25,7 +25,8 @@ public class Main {
 
         rotator.init();
         rotator.orientationWhiteCross();
-        rotator.insertCorners();
+        rotator.insertCornersInFirstLayer();
+        rotator.secondLayer();
         rotator.printLog();
 
         System.out.println(rubic.toString());
