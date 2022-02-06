@@ -11,6 +11,12 @@ public class Main {
         rotator.dRev();
         rotator.dRev();
         rotator.r();
+        rotator.l();
+        rotator.u();
+        rotator.d();
+        rotator.r();
+        rotator.f();
+        rotator.b();
 //        rotator.r();
 //        rotator.rRev();
 //        rotator.rRev();
