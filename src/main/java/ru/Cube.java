@@ -48,7 +48,7 @@ public class Cube {
         return this;
     }
 
-    public Cube rotUp() {
+    public Cube rotUpRev() {
         Colors tmp = front;
         front = left;
         left = back;
@@ -61,7 +61,7 @@ public class Cube {
         return this;
     }
 
-    public Cube rotUpRev() {
+    public Cube rotUp() {
         Colors tmp = front;
         front = right;
         right = back;
@@ -74,7 +74,7 @@ public class Cube {
         return this;
     }
 
-    public Cube rotRight() {
+    public Cube rotRightRev() {
         Colors tmp = up;
         up = front;
         front = down;
@@ -87,7 +87,7 @@ public class Cube {
         return this;
     }
 
-    public Cube rotRightRev() {
+    public Cube rotRight() {
         Colors tmp = up;
         up = back;
         back = down;

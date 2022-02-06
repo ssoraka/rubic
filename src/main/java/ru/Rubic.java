@@ -52,60 +52,60 @@ public class Rubic {
 
     public void x() {
         for (int i = 0; i < 3; i++) {
-            Cube tmp = cube[i][0][0].rotUp();
-            cube[i][0][0] = cube[i][0][2].rotUp();
-            cube[i][0][2] = cube[i][2][2].rotUp();
-            cube[i][2][2] = cube[i][2][0].rotUp();
+            Cube tmp = cube[i][0][0].rotUpRev();
+            cube[i][0][0] = cube[i][0][2].rotUpRev();
+            cube[i][0][2] = cube[i][2][2].rotUpRev();
+            cube[i][2][2] = cube[i][2][0].rotUpRev();
             cube[i][2][0] = tmp;
-            tmp = cube[i][1][0].rotUp();
-            cube[i][1][0] = cube[i][0][1].rotUp();
-            cube[i][0][1] = cube[i][1][2].rotUp();
-            cube[i][1][2] = cube[i][2][1].rotUp();
+            tmp = cube[i][1][0].rotUpRev();
+            cube[i][1][0] = cube[i][0][1].rotUpRev();
+            cube[i][0][1] = cube[i][1][2].rotUpRev();
+            cube[i][1][2] = cube[i][2][1].rotUpRev();
             cube[i][2][1] = tmp;
         }
     }
 
     public void xRev() {
         for (int i = 0; i < 3; i++) {
-            Cube tmp = cube[i][0][0].rotUpRev();
-            cube[i][0][0] = cube[i][2][0].rotUpRev();
-            cube[i][2][0] = cube[i][2][2].rotUpRev();
-            cube[i][2][2] = cube[i][0][2].rotUpRev();
+            Cube tmp = cube[i][0][0].rotUp();
+            cube[i][0][0] = cube[i][2][0].rotUp();
+            cube[i][2][0] = cube[i][2][2].rotUp();
+            cube[i][2][2] = cube[i][0][2].rotUp();
             cube[i][0][2] = tmp;
-            tmp = cube[i][1][0].rotUpRev();
-            cube[i][1][0] = cube[i][2][1].rotUpRev();
-            cube[i][2][1] = cube[i][1][2].rotUpRev();
-            cube[i][1][2] = cube[i][0][1].rotUpRev();
+            tmp = cube[i][1][0].rotUp();
+            cube[i][1][0] = cube[i][2][1].rotUp();
+            cube[i][2][1] = cube[i][1][2].rotUp();
+            cube[i][1][2] = cube[i][0][1].rotUp();
             cube[i][0][1] = tmp;
         }
     }
 
     public void y() {
         for (int i = 0; i < 3; i++) {
-            Cube tmp = cube[0][0][i].rotRightRev();
-            cube[0][0][i] = cube[2][0][i].rotRightRev();
-            cube[2][0][i] = cube[2][2][i].rotRightRev();
-            cube[2][2][i] = cube[0][2][i].rotRightRev();
+            Cube tmp = cube[0][0][i].rotRight();
+            cube[0][0][i] = cube[2][0][i].rotRight();
+            cube[2][0][i] = cube[2][2][i].rotRight();
+            cube[2][2][i] = cube[0][2][i].rotRight();
             cube[0][2][i] = tmp;
-            tmp = cube[1][0][i].rotRightRev();
-            cube[1][0][i] = cube[2][1][i].rotRightRev();
-            cube[2][1][i] = cube[1][2][i].rotRightRev();
-            cube[1][2][i] = cube[0][1][i].rotRightRev();
+            tmp = cube[1][0][i].rotRight();
+            cube[1][0][i] = cube[2][1][i].rotRight();
+            cube[2][1][i] = cube[1][2][i].rotRight();
+            cube[1][2][i] = cube[0][1][i].rotRight();
             cube[0][1][i] = tmp;
         }
     }
 
     public void yRev() {
         for (int i = 0; i < 3; i++) {
-            Cube tmp = cube[0][0][i].rotRight();
-            cube[0][0][i] = cube[0][2][i].rotRight();
-            cube[0][2][i] = cube[2][2][i].rotRight();
-            cube[2][2][i] = cube[2][0][i].rotRight();
+            Cube tmp = cube[0][0][i].rotRightRev();
+            cube[0][0][i] = cube[0][2][i].rotRightRev();
+            cube[0][2][i] = cube[2][2][i].rotRightRev();
+            cube[2][2][i] = cube[2][0][i].rotRightRev();
             cube[2][0][i] = tmp;
-            tmp = cube[1][0][i].rotRight();
-            cube[1][0][i] = cube[0][1][i].rotRight();
-            cube[0][1][i] = cube[1][2][i].rotRight();
-            cube[1][2][i] = cube[2][1][i].rotRight();
+            tmp = cube[1][0][i].rotRightRev();
+            cube[1][0][i] = cube[0][1][i].rotRightRev();
+            cube[0][1][i] = cube[1][2][i].rotRightRev();
+            cube[1][2][i] = cube[2][1][i].rotRightRev();
             cube[2][1][i] = tmp;
         }
     }

@@ -30,26 +30,26 @@ public class Rotator {
 
         up = new Face((i, j) -> cube[2][i][j],
                 (i, j, c) -> cube[2][i][j] = c,
-                Cube::rotUpRev,
                 Cube::rotUp,
+                Cube::rotUpRev,
                 Cube::getUp);
 
         down = new Face((i, j) -> cube[0][i][j],
                 (i, j, c) -> cube[0][i][j] = c,
-                Cube::rotUpRev,
                 Cube::rotUp,
+                Cube::rotUpRev,
                 Cube::getDown);
 
         left = new Face((i, j) -> cube[i][j][2],
                 (i, j, c) -> cube[i][j][2] = c,
-                Cube::rotRightRev,
                 Cube::rotRight,
+                Cube::rotRightRev,
                 Cube::getLeft);
 
         right = new Face((i, j) -> cube[i][j][0],
                 (i, j, c) -> cube[i][j][0] = c,
-                Cube::rotRightRev,
                 Cube::rotRight,
+                Cube::rotRightRev,
                 Cube::getRight);
     }
 
@@ -143,71 +143,63 @@ public class Rotator {
         }
     }
 
-    public void init() {
-        logger.init();
-    }
-
-    public void printLog() {
-        logger.printLog();
-    }
-
-    public Cube getCubeDF() {
+    public Cube getDF() {
         return cube[0][0][1];
     }
 
-    public Cube getCubeDB() {
+    public Cube getDB() {
         return cube[0][2][1];
     }
 
-    public Cube getCubeDL() {
+    public Cube getDL() {
         return cube[0][1][2];
     }
 
-    public Cube getCubeDR() {
+    public Cube getDR() {
         return cube[0][1][0];
     }
 
-    public Cube getCubeUF() {
+    public Cube getUF() {
         return cube[2][0][1];
     }
 
-    public Cube getCubeUB() {
+    public Cube getUB() {
         return cube[2][2][1];
     }
 
-    public Cube getCubeUL() {
+    public Cube getUL() {
         return cube[2][1][2];
     }
 
-    public Cube getCubeUR() {
+    public Cube getUR() {
         return cube[2][1][0];
     }
 
-    public Cube getCubeRF() {
+    public Cube getRF() {
         return cube[1][0][0];
     }
 
-    public Cube getCubeRB() {
+    public Cube getRB() {
         return cube[1][2][0];
     }
 
     public void orientationWhiteCross() {
         int colors = 0;
         int rightPos = 0;
-        if (getCubeDR().getDown() == Colors.WHITE) colors++;
-        if (getCubeDL().getDown() == Colors.WHITE) colors++;
-        if (getCubeDF().getDown() == Colors.WHITE) colors++;
-        if (getCubeDB().getDown() == Colors.WHITE) colors++;
+        if (getDR().getDown() == Colors.WHITE) colors++;
+        if (getDL().getDown() == Colors.WHITE) colors++;
+        if (getDF().getDown() == Colors.WHITE) colors++;
+        if (getDB().getDown() == Colors.WHITE) colors++;
 
         if (colors > 1) {
             int max = 0;
             int rolCount = 0;
             for (int i = 0; i < 4; i++) {
                 rightPos = 0;
-                if (getCubeDR().getDown() == Colors.WHITE && getCubeDR().getRight() == right.getColor()) rightPos++;
-                if (getCubeDL().getDown() == Colors.WHITE && getCubeDL().getLeft() == left.getColor()) rightPos++;
-                if (getCubeDF().getDown() == Colors.WHITE && getCubeDF().getLeft() == front.getColor()) rightPos++;
-                if (getCubeDB().getDown() == Colors.WHITE && getCubeDB().getLeft() == back.getColor()) rightPos++;
+                if (getDR().getDown() == Colors.WHITE && getDR().getRight() == right.getColor()) rightPos++;
+                if (getDL().getDown() == Colors.WHITE && getDL().getLeft() == left.getColor()) rightPos++;
+                if (getDF().getDown() == Colors.WHITE && getDF().getLeft() == front.getColor()) rightPos++;
+                if (getDB().getDown() == Colors.WHITE && getDB().getLeft() == back.getColor()) rightPos++;
                 if (rightPos > max) {
                     max = rightPos;
                     rolCount = i;
@@ -218,8 +210,8 @@ public class Rotator {
                 d();
             }
             for (int i = 0; i < 4; i++) {
-                if (getCubeDR().getDown() == Colors.WHITE && getCubeDR().getRight() == right.getColor()) {
-                    getCubeDR().setRightPlace(true);
+                if (getDR().getDown() == Colors.WHITE && getDR().getRight() == right.getColor()) {
+                    getDR().setRightPlace(true);
                 }
                 rubic.x();
             }
@@ -228,21 +220,21 @@ public class Rotator {
 
         //пробуем поставить правильным местом
         for (int i = 0; i < 8; i++) {
-            if (getCubeDR().isRightPlace()) {
+            if (getDR().isRightPlace()) {
                 rubic.x();
                 continue;
             }
-            if (getCubeRF().getFront() == Colors.WHITE && getCubeRF().getRight() == right.getColor()) {
+            if (getRF().getFront() == Colors.WHITE && getRF().getRight() == right.getColor()) {
                 rotYellow();
                 rRev();
             }
-            if (getCubeRB().getBack() == Colors.WHITE && getCubeRB().getRight() == right.getColor()) {
+            if (getRB().getBack() == Colors.WHITE && getRB().getRight() == right.getColor()) {
                 rotYellow();
                 r();
             }
-            if (getCubeUR().getUp() == Colors.WHITE && getCubeUR().getRight() == right.getColor()) r2();
-            if (getCubeDR().getDown() == Colors.WHITE && getCubeDR().getRight() == right.getColor()) {
-                getCubeDR().setRightPlace(true);
+            if (getUR().getUp() == Colors.WHITE && getUR().getRight() == right.getColor()) r2();
+            if (getDR().getDown() == Colors.WHITE && getDR().getRight() == right.getColor()) {
+                getDR().setRightPlace(true);
             }
             rubic.x();
         }
@@ -255,15 +247,15 @@ public class Rotator {
 
         //борьба с неправильно расположенными детальками
         for (int i = 0; i < 8; i++) {
-            if (getCubeUR().getRight() != Colors.WHITE && getCubeDR().getRight() != Colors.WHITE) {
+            if (getUR().getRight() != Colors.WHITE && getDR().getRight() != Colors.WHITE) {
                 rubic.x();
                 continue;
             }
             int num = 0;
-            if (getCubeDR().isRightPlace()) {
+            if (getDR().isRightPlace()) {
                 num = rotWhite();
             }
-            if (getCubeUR().getUp() == Colors.WHITE) {
+            if (getUR().getUp() == Colors.WHITE) {
                 rotYellow();
             }
             r();
@@ -277,67 +269,80 @@ public class Rotator {
 
         //опускаем вниз
         for (int i = 0; i < 4; i++) {
-            if (getCubeDR().isRightPlace()) {
+            if (getDR().isRightPlace()) {
                 rubic.x();
                 continue;
             }
-            if (getCubeUF().getUp() == Colors.WHITE && getCubeUF().getFront() == right.getColor()) {
+            if (getUF().getUp() == Colors.WHITE && getUF().getFront() == right.getColor()) {
                 uRev();
             }
-            if (getCubeUB().getUp() == Colors.WHITE && getCubeUB().getBack() == right.getColor()) {
+            if (getUB().getUp() == Colors.WHITE && getUB().getBack() == right.getColor()) {
                 u();
             }
-            if (getCubeUL().getUp() == Colors.WHITE && getCubeUL().getLeft() == right.getColor()) {
+            if (getUL().getUp() == Colors.WHITE && getUL().getLeft() == right.getColor()) {
                 u2();
             }
-            if (getCubeUR().getUp() == Colors.WHITE && getCubeUR().getRight() == right.getColor()) {
+            if (getUR().getUp() == Colors.WHITE && getUR().getRight() == right.getColor()) {
                 r2();
-                getCubeDR().setRightPlace(true);
+                getDR().setRightPlace(true);
             }
             rubic.x();
+        }
+
+        if (!getDR().isRightPlace() || !getDL().isRightPlace() || !getDF().isRightPlace() || !getDB().isRightPlace()) {
+            throw new RuntimeException("крест не собирается");
         }
     }
 
     private void whiteToUp() {
-        if (getCubeRF().getFront() == Colors.WHITE) {
+        if (getRF().getFront() == Colors.WHITE) {
             rotYellow();
             r();
-            if (getCubeRF().isRightPlace()) {
+            if (getRF().isRightPlace()) {
                 rotYellow();
                 rRev();
             }
         }
-        if (getCubeRB().getBack() == Colors.WHITE) {
+        if (getRB().getBack() == Colors.WHITE) {
             rotYellow();
             rRev();
-            if (getCubeRF().isRightPlace()) {
+            if (getRF().isRightPlace()) {
                 rotYellow();
                 r();
             }
         }
-        if (getCubeDR().getDown() == Colors.WHITE && !getCubeDR().isRightPlace()) {
+        if (getDR().getDown() == Colors.WHITE && !getDR().isRightPlace()) {
             rotYellow();
             r2();
         }
     }
 
     private void rotYellow() {
-        while (getCubeUR().getUp() == Colors.WHITE) {
+        while (getUR().getUp() == Colors.WHITE) {
             u();
         }
     }
 
     private int rotWhite() {
         int i = 0;
-        while (getCubeDR().isRightPlace) {
+        while (getDR().isRightPlace) {
             d();
             i++;
         }
         return i;
     }
 
+
+
     public void print() {
         System.out.println(rubic.toString());
     }
 
+    public void init() {
+        logger.init();
+    }
+
+    public void printLog() {
+        logger.printLog();
+    }
 }
