@@ -2,7 +2,7 @@ package ru;
 
 
 public class Cube {
-    private int colors;
+    private int colorsHash;
     private Colors left = Colors.BLACK;
     private Colors right = Colors.BLACK;
     private Colors up = Colors.BLACK;
@@ -10,16 +10,9 @@ public class Cube {
     private Colors front = Colors.BLACK;
     private Colors back = Colors.BLACK;
 
-    private int x;
-    private int y;
-    private int z;
-
     boolean isRightPlace;
 
-    public Cube(int z, int y, int x) {
-        this.x = x - 1;
-        this.y = y - 1;
-        this.z = z - 1;
+    public Cube() {
     }
 
     public Cube rotFront() {
@@ -28,10 +21,6 @@ public class Cube {
         left = down;
         down = right;
         right = tmp;
-
-        int pos = z;
-        z = x;
-        x = -z;
         return this;
     }
 
@@ -41,10 +30,6 @@ public class Cube {
         right = down;
         down = left;
         left = tmp;
-
-        int pos = z;
-        z = -x;
-        x = z;
         return this;
     }
 
@@ -54,10 +39,6 @@ public class Cube {
         left = back;
         back = right;
         right = tmp;
-
-        int pos = y;
-        y = x;
-        x = -y;
         return this;
     }
 
@@ -67,10 +48,6 @@ public class Cube {
         right = back;
         back = left;
         left = tmp;
-
-        int pos = y;
-        y = -x;
-        x = y;
         return this;
     }
 
@@ -80,10 +57,6 @@ public class Cube {
         front = down;
         down = back;
         back = tmp;
-
-        int pos = x;
-        x = z;
-        z = -x;
         return this;
     }
 
@@ -93,22 +66,18 @@ public class Cube {
         back = down;
         down = front;
         front = tmp;
-
-        int pos = x;
-        x = -z;
-        z = x;
         return this;
     }
 
-    public int getColors() {
-        if (colors == Colors.BLACK.code) {
-            colors = left.code | right.code | up.code | down.code | front.code | back.code;
+    private int getColorsHash() {
+        if (colorsHash == Colors.BLACK.code) {
+            colorsHash = left.code | right.code | up.code | down.code | front.code | back.code;
         }
-        return colors;
+        return colorsHash;
     }
 
     public boolean hasColor(Colors color) {
-        return (getColors() & color.code) != 0;
+        return (getColorsHash() & color.code) != 0;
     }
 
     public Colors getLeft() {
@@ -169,10 +138,10 @@ public class Cube {
 
     @Override
     public String toString() {
-        getColors();
+        getColorsHash();
         StringBuilder sb = new StringBuilder();
         for (Colors c : Colors.values()) {
-            if ((c.code & colors) != 0) {
+            if ((c.code & colorsHash) != 0) {
                 sb.append(c.letter);
             }
         }

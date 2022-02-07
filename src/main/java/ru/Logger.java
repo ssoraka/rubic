@@ -5,10 +5,6 @@ import java.util.*;
 public class Logger {
     List<String> list = new ArrayList<>();
 
-    public void init() {
-        list = new ArrayList<>();
-    }
-
     public void log(String log) {
         list.add(log);
     }

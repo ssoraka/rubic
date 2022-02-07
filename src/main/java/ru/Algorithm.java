@@ -1,138 +1,93 @@
 package ru;
 
-public class Rotator {
+public class Algorithm {
     Rubic rubic;
-    Cube[][][] cube;
     Logger logger = new Logger();
 
-    Face front;
-    Face back;
-    Face up;
-    Face down;
-    Face left;
-    Face right;
-
-    public Rotator(Rubic rubic) {
+    public Algorithm(Rubic rubic) {
         this.rubic = rubic;
-        this.cube = rubic.getCube();
-
-        front = new Face((i, j) -> cube[i][0][j],
-                (i, j, c) -> cube[i][0][j] = c,
-                Cube::rotFront,
-                Cube::rotFrontRev,
-                Cube::getFront);
-
-        back = new Face((i, j) -> cube[i][2][j],
-                (i, j, c) -> cube[i][2][j] = c,
-                Cube::rotFront,
-                Cube::rotFrontRev,
-                Cube::getBack);
-
-        up = new Face((i, j) -> cube[2][i][j],
-                (i, j, c) -> cube[2][i][j] = c,
-                Cube::rotUp,
-                Cube::rotUpRev,
-                Cube::getUp);
-
-        down = new Face((i, j) -> cube[0][i][j],
-                (i, j, c) -> cube[0][i][j] = c,
-                Cube::rotUp,
-                Cube::rotUpRev,
-                Cube::getDown);
-
-        left = new Face((i, j) -> cube[i][j][2],
-                (i, j, c) -> cube[i][j][2] = c,
-                Cube::rotRight,
-                Cube::rotRightRev,
-                Cube::getLeft);
-
-        right = new Face((i, j) -> cube[i][j][0],
-                (i, j, c) -> cube[i][j][0] = c,
-                Cube::rotRight,
-                Cube::rotRightRev,
-                Cube::getRight);
     }
 
-
-
-    public void f() {
-        log(front.getColor(), false);
-        front.rot();
+    private void f() {
+        log(frontColor(), false);
+        rubic.f();
     }
 
-    public void fRev() {
-        log(front.getColor(), true);
-        front.rotRev();
+    private void fRev() {
+        log(frontColor(), true);
+        rubic.fRev();
     }
 
-    public void b() {
-        log(back.getColor(), false);
-        back.rotRev();
+    private void b() {
+        log(backColor(), false);
+        rubic.b();
     }
 
-    public void bRev() {
-        log(back.getColor(), true);
-        back.rot();
+    private void bRev() {
+        log(backColor(), true);
+        rubic.bRev();
     }
 
-    public void u() {
-        log(up.getColor(), false);
-        up.rot();
+    private void u() {
+        log(upColor(), false);
+        rubic.u();
     }
 
-    public void u2() {
-        log(up.getColor(), false);
-        log(up.getColor(), false);
-        up.rot();
-        up.rot();
+    private void u2() {
+        log(upColor(), false);
+        log(upColor(), false);
+        rubic.u();
+        rubic.u();
     }
 
-    public void uRev() {
-        log(up.getColor(), true);
-        up.rotRev();
+    private void uRev() {
+        log(upColor(), true);
+        rubic.uRev();
+
     }
 
-    public void d() {
-        log(down.getColor(), false);
-        down.rot();
+    private void d() {
+        log(downColor(), false);
+        rubic.d();
     }
-    public void d(int n) {
+
+    private void d(int n) {
         for (int i = 0; i < n; i++) {
-            log(down.getColor(), false);
-            down.rot();
+            log(downColor(), false);
+            rubic.d();
         }
     }
 
-    public void dRev() {
-        log(down.getColor(), true);
-        down.rotRev();
+    private void dRev() {
+        log(downColor(), true);
+        rubic.dRev();
     }
 
-    public void l() {
-        log(right.getColor(), false);
-        left.rot();
+    private void l() {
+        log(rightColor(), false);
+        rubic.l();
     }
 
-    public void lRev() {
-        log(left.getColor(), true);
-        left.rotRev();
+    private void lRev() {
+        log(leftColor(), true);
+        rubic.lRev();
     }
 
-    public void r() {
-        log(right.getColor(), false);
-        right.rotRev();
+    private void r() {
+        log(rightColor(), false);
+        rubic.r();
     }
 
-    public void r2() {
-        log(right.getColor(), false);
-        log(right.getColor(), false);
-        right.rotRev();
-        right.rotRev();
+    private void r2() {
+        log(rightColor(), false);
+        log(rightColor(), false);
+        rubic.r();
+        rubic.r();
     }
 
-    public void rRev() {
-        log(right.getColor(), true);
-        right.rot();
+    private void rRev() {
+        log(rightColor(), true);
+        rubic.rRev();
     }
 
     private void log(Colors color, boolean rev) {
@@ -143,86 +98,109 @@ public class Rotator {
         }
     }
 
-    public Cube getDF() {
-        return cube[0][0][1];
+    private Cube getDF() {
+        return rubic.getDF();
     }
 
-    public Cube getDB() {
-        return cube[0][2][1];
+    private Cube getDB() {
+        return rubic.getDB();
     }
 
-    public Cube getDL() {
-        return cube[0][1][2];
+    private Cube getDL() {
+        return rubic.getDL();
     }
 
-    public Cube getDR() {
-        return cube[0][1][0];
+    private Cube getDR() {
+        return rubic.getDR();
     }
 
-    public Cube getUF() {
-        return cube[2][0][1];
+    private Cube getUF() {
+        return rubic.getUF();
     }
 
-    public Cube getUB() {
-        return cube[2][2][1];
+    private Cube getUB() {
+        return rubic.getUB();
     }
 
-    public Cube getUL() {
-        return cube[2][1][2];
+    private Cube getUL() {
+        return rubic.getUL();
     }
 
-    public Cube getUR() {
-        return cube[2][1][0];
+    private Cube getUR() {
+        return rubic.getUR();
     }
 
-    public Cube getRF() {
-        return cube[1][0][0];
+    private Cube getRF() {
+        return rubic.getRF();
     }
 
-    public Cube getRB() {
-        return cube[1][2][0];
+    private Cube getRB() {
+        return rubic.getRB();
     }
 
-    public Cube getLF() {
-        return cube[1][0][2];
+    private Cube getLF() {
+        return rubic.getLF();
     }
 
-    public Cube getLB() {
-        return cube[1][2][2];
+    private Cube getLB() {
+        return rubic.getLB();
     }
 
-    public Cube getURF() {
-        return cube[2][0][0];
+    private Cube getURF() {
+        return rubic.getURF();
     }
 
-    public Cube getURB() {
-        return cube[2][2][0];
+    private Cube getURB() {
+        return rubic.getURB();
     }
 
-    public Cube getULF() {
-        return cube[2][0][2];
+    private Cube getULF() {
+        return rubic.getULF();
     }
 
-    public Cube getULB() {
-        return cube[2][2][2];
+    private Cube getULB() {
+        return rubic.getULB();
     }
 
-    public Cube getDRF() {
-        return cube[0][0][0];
+    private Cube getDRF() {
+        return rubic.getDRF();
     }
 
-    public Cube getDRB() {
-        return cube[0][2][0];
+    private Cube getDRB() {
+        return rubic.getDRB();
     }
 
-    public Cube getDLF() {
-        return cube[0][0][2];
+    private Cube getDLF() {
+        return rubic.getDLF();
     }
 
-    public Cube getDLB() {
-        return cube[0][2][2];
+    private Cube getDLB() {
+        return rubic.getDLB();
     }
 
+    private Colors rightColor() {
+        return rubic.getRightColor();
+    }
+
+    private Colors leftColor() {
+        return rubic.getLeftColor();
+    }
+
+    private Colors upColor() {
+        return rubic.getUpColor();
+    }
+
+    private Colors downColor() {
+        return rubic.getDownColor();
+    }
+
+    private Colors frontColor() {
+        return rubic.getFrontColor();
+    }
+    private Colors backColor() {
+        return rubic.getBackColor();
+    }
+    
     public void orientationWhiteCross() {
         int colors = 0;
         int rightPos = 0;
@@ -236,10 +214,10 @@ public class Rotator {
             int rolCount = 0;
             for (int i = 0; i < 4; i++) {
                 rightPos = 0;
-                if (getDR().getDown() == Colors.WHITE && getDR().getRight() == right.getColor()) rightPos++;
-                if (getDL().getDown() == Colors.WHITE && getDL().getLeft() == left.getColor()) rightPos++;
-                if (getDF().getDown() == Colors.WHITE && getDF().getLeft() == front.getColor()) rightPos++;
-                if (getDB().getDown() == Colors.WHITE && getDB().getLeft() == back.getColor()) rightPos++;
+                if (getDR().getDown() == Colors.WHITE && getDR().getRight() == rightColor()) rightPos++;
+                if (getDL().getDown() == Colors.WHITE && getDL().getLeft() == leftColor()) rightPos++;
+                if (getDF().getDown() == Colors.WHITE && getDF().getLeft() == frontColor()) rightPos++;
+                if (getDB().getDown() == Colors.WHITE && getDB().getLeft() == backColor()) rightPos++;
                 if (rightPos > max) {
                     max = rightPos;
                     rolCount = i;
@@ -250,7 +228,7 @@ public class Rotator {
                 d();
             }
             for (int i = 0; i < 4; i++) {
-                if (getDR().getDown() == Colors.WHITE && getDR().getRight() == right.getColor()) {
+                if (getDR().getDown() == Colors.WHITE && getDR().getRight() == rightColor()) {
                     getDR().setRightPlace(true);
                 }
                 rubic.x();
@@ -264,16 +242,16 @@ public class Rotator {
                 rubic.x();
                 continue;
             }
-            if (getRF().getFront() == Colors.WHITE && getRF().getRight() == right.getColor()) {
+            if (getRF().getFront() == Colors.WHITE && getRF().getRight() == rightColor()) {
                 rotYellow();
                 rRev();
             }
-            if (getRB().getBack() == Colors.WHITE && getRB().getRight() == right.getColor()) {
+            if (getRB().getBack() == Colors.WHITE && getRB().getRight() == rightColor()) {
                 rotYellow();
                 r();
             }
-            if (getUR().getUp() == Colors.WHITE && getUR().getRight() == right.getColor()) r2();
-            if (getDR().getDown() == Colors.WHITE && getDR().getRight() == right.getColor()) {
+            if (getUR().getUp() == Colors.WHITE && getUR().getRight() == rightColor()) r2();
+            if (getDR().getDown() == Colors.WHITE && getDR().getRight() == rightColor()) {
                 getDR().setRightPlace(true);
             }
             rubic.x();
@@ -305,7 +283,6 @@ public class Rotator {
             d(4 - num);
             rubic.x();
         }
-
 
         //опускаем вниз
         for (int i = 0; i < 4; i++) {
@@ -418,14 +395,14 @@ public class Rotator {
         if (getRightThirdCornerCount() == 4) return;
 
         for (int i = 0; i < 4; i++) {
-            if (getULF().hasColor(front.getColor()) && getULF().hasColor(up.getColor()) && getULF().hasColor(left.getColor()) &&
-                    getULB().hasColor(back.getColor()) && getULB().hasColor(up.getColor()) && getULB().hasColor(left.getColor())) {
+            if (getULF().hasColor(frontColor()) && getULF().hasColor(upColor()) && getULF().hasColor(leftColor()) &&
+                    getULB().hasColor(backColor()) && getULB().hasColor(upColor()) && getULB().hasColor(leftColor())) {
                 break ;
             }
             rubic.x();
         }
 
-        if (!getULF().hasColor(front.getColor()) || !getULF().hasColor(up.getColor()) || !getULF().hasColor(left.getColor()))  {
+        if (!getULF().hasColor(frontColor()) || !getULF().hasColor(upColor()) || !getULF().hasColor(leftColor()))  {
             u();
             rightHand(3);
             leftHand(3);
@@ -481,7 +458,7 @@ public class Rotator {
 
     private boolean haveCompleteLine() {
         for (int i = 0; i < 4; i++) {
-            Colors color = front.getColor();
+            Colors color = frontColor();
             if (getURF().getFront() == color && getUF().getFront() == color && getULF().getFront() == color) {
                 return true;
             }
@@ -491,70 +468,70 @@ public class Rotator {
     }
 
     private boolean isComplete() {
-        if (getURF().getFront() != front.getColor() || getUF().getFront() != front.getColor()
-                || getULF().getFront() != front.getColor()) return false;
-        if (getURB().getBack() != back.getColor() || getUB().getBack() != back.getColor()
-                || getULB().getBack() != back.getColor()) return false;
-        if (getURF().getRight() != right.getColor() || getUR().getRight() != right.getColor()
-                || getURB().getRight() != right.getColor()) return false;
-        if (getULF().getLeft() != left.getColor() || getUL().getLeft() != left.getColor()
-                || getULB().getLeft() != left.getColor()) return false;
+        if (getURF().getFront() != frontColor() || getUF().getFront() != frontColor()
+                || getULF().getFront() != frontColor()) return false;
+        if (getURB().getBack() != backColor() || getUB().getBack() != backColor()
+                || getULB().getBack() != backColor()) return false;
+        if (getURF().getRight() != rightColor() || getUR().getRight() != rightColor()
+                || getURB().getRight() != rightColor()) return false;
+        if (getULF().getLeft() != leftColor() || getUL().getLeft() != leftColor()
+                || getULB().getLeft() != leftColor()) return false;
         return true;
     }
 
     private int getRightThirdCornerCount() {
         int count = 0;
-        if (getURF().hasColor(front.getColor()) && getURF().hasColor(up.getColor())
-                && getURF().hasColor(right.getColor())) count++;
-        if (getURB().hasColor(back.getColor()) && getURB().hasColor(up.getColor())
-                && getURB().hasColor(right.getColor())) count++;
-        if (getULF().hasColor(front.getColor()) && getULF().hasColor(up.getColor())
-                && getULF().hasColor(left.getColor())) count++;
-        if (getULB().hasColor(back.getColor()) && getULB().hasColor(up.getColor())
-                && getULB().hasColor(left.getColor())) count++;
+        if (getURF().hasColor(frontColor()) && getURF().hasColor(upColor())
+                && getURF().hasColor(rightColor())) count++;
+        if (getURB().hasColor(backColor()) && getURB().hasColor(upColor())
+                && getURB().hasColor(rightColor())) count++;
+        if (getULF().hasColor(frontColor()) && getULF().hasColor(upColor())
+                && getULF().hasColor(leftColor())) count++;
+        if (getULB().hasColor(backColor()) && getULB().hasColor(upColor())
+                && getULB().hasColor(leftColor())) count++;
         return count;
     }
 
-    public void rightHand() {
+    private void rightHand() {
         r();
         u();
         rRev();
         uRev();
     }
 
-    public void rightHand(int n) {
+    private void rightHand(int n) {
         for (int i = 0; i < n; i++) {
             rightHand();
         }
     }
 
-    public void leftHand() {
+    private void leftHand() {
         fRev();
         uRev();
         f();
         u();
     }
 
-    public void leftHand(int n) {
+    private void leftHand(int n) {
         for (int i = 0; i < n; i++) {
             leftHand();
         }
     }
 
-    public void placeSecondFromUp() {
-        if (getUF().hasColor(front.getColor()) && getUF().hasColor(right.getColor())) {
+    private void placeSecondFromUp() {
+        if (getUF().hasColor(frontColor()) && getUF().hasColor(rightColor())) {
             ;
-        } else if (getUB().hasColor(front.getColor()) && getUB().hasColor(right.getColor())) {
+        } else if (getUB().hasColor(frontColor()) && getUB().hasColor(rightColor())) {
             u2();
-        } else if (getUR().hasColor(front.getColor()) && getUR().hasColor(right.getColor())) {
+        } else if (getUR().hasColor(frontColor()) && getUR().hasColor(rightColor())) {
             u();
-        } else if (getUL().hasColor(front.getColor()) && getUL().hasColor(right.getColor())) {
+        } else if (getUL().hasColor(frontColor()) && getUL().hasColor(rightColor())) {
             uRev();
         } else {
             return;
         }
 
-        if (getUF().getFront() == front.getColor()) {
+        if (getUF().getFront() == frontColor()) {
             u();
             rightHand();
             leftHand();
@@ -565,17 +542,17 @@ public class Rotator {
         }
 
         getRF().setRightPlace(true);
-        if (getRF().getRight() != right.getColor() || getRF().getFront() != front.getColor()) {
+        if (getRF().getRight() != rightColor() || getRF().getFront() != frontColor()) {
             throw new RuntimeException("косяк в детальки второго уровня");
         }
     }
 
-    public void placeCornerFromUp() {
+    private void placeCornerFromUp() {
         int i = 0;
         for (i = 0; i < 4; i++) {
-            if (getURF().hasColor(right.getColor())
-                    && getURF().hasColor(front.getColor())
-                    && getURF().hasColor(down.getColor())) {
+            if (getURF().hasColor(rightColor())
+                    && getURF().hasColor(frontColor())
+                    && getURF().hasColor(downColor())) {
                 break;
             }
             u();
@@ -590,66 +567,66 @@ public class Rotator {
             rightHand(3);
         }
         getDRF().setRightPlace(true);
-        if (getDRF().getRight() != right.getColor()
-                || getDRF().getFront() != front.getColor()
-                || getDRF().getDown() != down.getColor()) {
+        if (getDRF().getRight() != rightColor()
+                || getDRF().getFront() != frontColor()
+                || getDRF().getDown() != downColor()) {
             throw new RuntimeException("косяк в проставлении угла");
         }
     }
 
-    public void checkCorners() {
-        if (getDRF().getRight() == right.getColor()
-                && getDRF().getFront() == front.getColor()
-                && getDRF().getDown() == down.getColor()) {
+    private void checkCorners() {
+        if (getDRF().getRight() == rightColor()
+                && getDRF().getFront() == frontColor()
+                && getDRF().getDown() == downColor()) {
             getDRF().setRightPlace(true);
         }
-        if (getDLF().getLeft() == left.getColor()
-                && getDLF().getFront() == front.getColor()
-                && getDLF().getDown() == down.getColor()) {
+        if (getDLF().getLeft() == leftColor()
+                && getDLF().getFront() == frontColor()
+                && getDLF().getDown() == downColor()) {
             getDLF().setRightPlace(true);
         }
-        if (getDRB().getRight() == right.getColor()
-                && getDRB().getBack() == back.getColor()
-                && getDRB().getDown() == down.getColor()) {
+        if (getDRB().getRight() == rightColor()
+                && getDRB().getBack() == backColor()
+                && getDRB().getDown() == downColor()) {
             getDRB().setRightPlace(true);
         }
-        if (getDLB().getLeft() == left.getColor()
-                && getDLB().getBack() == front.getColor()
-                && getDLB().getDown() == down.getColor()) {
+        if (getDLB().getLeft() == leftColor()
+                && getDLB().getBack() == frontColor()
+                && getDLB().getDown() == downColor()) {
             getDLB().setRightPlace(true);
         }
     }
 
-    public void checkSeconds() {
-        if (getRF().getRight() == right.getColor()
-                && getRF().getFront() == front.getColor()) {
+    private void checkSeconds() {
+        if (getRF().getRight() == rightColor()
+                && getRF().getFront() == frontColor()) {
             getRF().setRightPlace(true);
         }
-        if (getLF().getLeft() == left.getColor()
-                && getLF().getFront() == front.getColor()) {
+        if (getLF().getLeft() == leftColor()
+                && getLF().getFront() == frontColor()) {
             getLF().setRightPlace(true);
         }
-        if (getRB().getRight() == right.getColor()
-                && getRB().getBack() == back.getColor()) {
+        if (getRB().getRight() == rightColor()
+                && getRB().getBack() == backColor()) {
             getRB().setRightPlace(true);
         }
-        if (getLB().getLeft() == left.getColor()
-                && getLB().getBack() == back.getColor()) {
+        if (getLB().getLeft() == leftColor()
+                && getLB().getBack() == backColor()) {
             getLB().setRightPlace(true);
         }
     }
 
     private void whiteToDown() {
-        if (getUF().getUp() == Colors.WHITE && getUF().getFront() == right.getColor()) {
+        if (getUF().getUp() == Colors.WHITE && getUF().getFront() == rightColor()) {
             uRev();
         }
-        if (getUB().getUp() == Colors.WHITE && getUB().getBack() == right.getColor()) {
+        if (getUB().getUp() == Colors.WHITE && getUB().getBack() == rightColor()) {
             u();
         }
-        if (getUL().getUp() == Colors.WHITE && getUL().getLeft() == right.getColor()) {
+        if (getUL().getUp() == Colors.WHITE && getUL().getLeft() == rightColor()) {
             u2();
         }
-        if (getUR().getUp() == Colors.WHITE && getUR().getRight() == right.getColor()) {
+        if (getUR().getUp() == Colors.WHITE && getUR().getRight() == rightColor()) {
             r2();
             getDR().setRightPlace(true);
         }
@@ -693,14 +670,8 @@ public class Rotator {
         return i;
     }
 
-
-
-    public void print() {
+    private void print() {
         System.out.println(rubic.toString());
-    }
-
-    public void init() {
-        logger.init();
     }
 
     public void printLog() {

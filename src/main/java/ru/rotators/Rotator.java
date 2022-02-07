@@ -1,21 +1,20 @@
-package ru;
+package ru.rotators;
 
-import java.util.function.Function;
+import ru.Cube;
+
 import java.util.function.UnaryOperator;
 
-public class Face {
-    private FaceGetter get;
-    private FaceSetter set;
+public class Rotator {
+    private Getter get;
+    private Setter set;
     private UnaryOperator<Cube> rotFunc;
     private UnaryOperator<Cube> rotRevFunc;
-    private Function<Cube, Colors> getColors;
 
-    public Face(FaceGetter get, FaceSetter set, UnaryOperator<Cube> rotFunc, UnaryOperator<Cube> rotRevFunc, Function<Cube, Colors> getColor) {
+    public Rotator(Getter get, Setter set, UnaryOperator<Cube> rotFunc, UnaryOperator<Cube> rotRevFunc) {
         this.get = get;
         this.set = set;
         this.rotFunc = rotFunc;
         this.rotRevFunc = rotRevFunc;
-        this.getColors = getColor;
     }
 
     public void rot() {
@@ -42,9 +41,5 @@ public class Face {
         set.set(0, 1, rotRevFunc.apply(get.get(1, 2)));
         set.set(1, 2, rotRevFunc.apply(get.get(2, 1)));
         set.set(2, 1, tmp);
-    }
-
-    public Colors getColor() {
-        return getColors.apply(get.get(1, 1));
     }
 }
