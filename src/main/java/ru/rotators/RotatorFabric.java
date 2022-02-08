@@ -1,7 +1,6 @@
 package ru.rotators;
 
 import ru.Cube;
-import ru.Rubic;
 
 public abstract class RotatorFabric {
     public static Rotator createUpRotator(Cube[][][] cube) {

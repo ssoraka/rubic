@@ -3,7 +3,7 @@ package ru;
 import ru.rotators.Rotator;
 import ru.rotators.RotatorFabric;
 
-public class Rubic {
+public class Rubik {
     private Cube[][][] cube;
     private Rotator front;
     private Rotator back;
@@ -12,7 +12,7 @@ public class Rubic {
     private Rotator left;
     private Rotator right;
 
-    public Rubic() {
+    public Rubik() {
         cube = new Cube[3][3][3];
 
         for (int i = 0; i < 3; i++) {
@@ -195,6 +195,22 @@ public class Rubic {
                 cube[i][j][2].setLeft(Colors.ORANGE);
             }
         }
+    }
+
+    public boolean isComplete() {
+        for(int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                if (cube[0][i][j].getDown() != Colors.WHITE
+                    || cube[2][i][j].getUp() != Colors.YELLOW
+                    || cube[i][0][j].getFront() != getFrontColor()
+                    || cube[i][2][j].getBack() != getBackColor()
+                    || cube[i][j][0].getRight() != getRightColor()
+                    || cube[i][j][2].getLeft() != getLeftColor()) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
     public void x() {

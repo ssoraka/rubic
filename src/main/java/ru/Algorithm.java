@@ -4,11 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Algorithm {
-    Rubic rubic;
+    Rubik rubik;
     List<String> logs = new ArrayList<>();
 
-    public Algorithm(Rubic rubic) {
-        this.rubic = rubic;
+    public Algorithm(Rubik rubik) {
+        this.rubik = rubik;
     }
 
     public List<String> getLogs() {
@@ -17,187 +17,187 @@ public class Algorithm {
 
     private void f() {
         log(frontColor(), false);
-        rubic.f();
+        rubik.f();
     }
 
     private void fRev() {
         log(frontColor(), true);
-        rubic.fRev();
+        rubik.fRev();
     }
 
     private void b() {
         log(backColor(), false);
-        rubic.b();
+        rubik.b();
     }
 
     private void bRev() {
         log(backColor(), true);
-        rubic.bRev();
+        rubik.bRev();
     }
 
     private void u() {
         log(upColor(), false);
-        rubic.u();
+        rubik.u();
     }
 
     private void u2() {
         log(upColor(), false);
         log(upColor(), false);
-        rubic.u();
-        rubic.u();
+        rubik.u();
+        rubik.u();
     }
 
     private void uRev() {
         log(upColor(), true);
-        rubic.uRev();
+        rubik.uRev();
 
     }
 
     private void d() {
         log(downColor(), false);
-        rubic.d();
+        rubik.d();
     }
 
     private void d(int n) {
         for (int i = 0; i < n; i++) {
             log(downColor(), false);
-            rubic.d();
+            rubik.d();
         }
     }
 
     private void dRev() {
         log(downColor(), true);
-        rubic.dRev();
+        rubik.dRev();
     }
 
     private void l() {
-        log(rightColor(), false);
-        rubic.l();
+        log(leftColor(), false);
+        rubik.l();
     }
 
     private void lRev() {
         log(leftColor(), true);
-        rubic.lRev();
+        rubik.lRev();
     }
 
     private void r() {
         log(rightColor(), false);
-        rubic.r();
+        rubik.r();
     }
 
     private void r2() {
         log(rightColor(), false);
         log(rightColor(), false);
-        rubic.r();
-        rubic.r();
+        rubik.r();
+        rubik.r();
     }
 
     private void rRev() {
         log(rightColor(), true);
-        rubic.rRev();
+        rubik.rRev();
     }
 
     private Cube getDF() {
-        return rubic.getDF();
+        return rubik.getDF();
     }
 
     private Cube getDB() {
-        return rubic.getDB();
+        return rubik.getDB();
     }
 
     private Cube getDL() {
-        return rubic.getDL();
+        return rubik.getDL();
     }
 
     private Cube getDR() {
-        return rubic.getDR();
+        return rubik.getDR();
     }
 
     private Cube getUF() {
-        return rubic.getUF();
+        return rubik.getUF();
     }
 
     private Cube getUB() {
-        return rubic.getUB();
+        return rubik.getUB();
     }
 
     private Cube getUL() {
-        return rubic.getUL();
+        return rubik.getUL();
     }
 
     private Cube getUR() {
-        return rubic.getUR();
+        return rubik.getUR();
     }
 
     private Cube getRF() {
-        return rubic.getRF();
+        return rubik.getRF();
     }
 
     private Cube getRB() {
-        return rubic.getRB();
+        return rubik.getRB();
     }
 
     private Cube getLF() {
-        return rubic.getLF();
+        return rubik.getLF();
     }
 
     private Cube getLB() {
-        return rubic.getLB();
+        return rubik.getLB();
     }
 
     private Cube getURF() {
-        return rubic.getURF();
+        return rubik.getURF();
     }
 
     private Cube getURB() {
-        return rubic.getURB();
+        return rubik.getURB();
     }
 
     private Cube getULF() {
-        return rubic.getULF();
+        return rubik.getULF();
     }
 
     private Cube getULB() {
-        return rubic.getULB();
+        return rubik.getULB();
     }
 
     private Cube getDRF() {
-        return rubic.getDRF();
+        return rubik.getDRF();
     }
 
     private Cube getDRB() {
-        return rubic.getDRB();
+        return rubik.getDRB();
     }
 
     private Cube getDLF() {
-        return rubic.getDLF();
+        return rubik.getDLF();
     }
 
     private Cube getDLB() {
-        return rubic.getDLB();
+        return rubik.getDLB();
     }
 
     private Colors rightColor() {
-        return rubic.getRightColor();
+        return rubik.getRightColor();
     }
 
     private Colors leftColor() {
-        return rubic.getLeftColor();
+        return rubik.getLeftColor();
     }
 
     private Colors upColor() {
-        return rubic.getUpColor();
+        return rubik.getUpColor();
     }
 
     private Colors downColor() {
-        return rubic.getDownColor();
+        return rubik.getDownColor();
     }
 
     private Colors frontColor() {
-        return rubic.getFrontColor();
+        return rubik.getFrontColor();
     }
     private Colors backColor() {
-        return rubic.getBackColor();
+        return rubik.getBackColor();
     }
     
     public void orientationWhiteCross() {
@@ -230,7 +230,7 @@ public class Algorithm {
                 if (getDR().getDown() == Colors.WHITE && getDR().getRight() == rightColor()) {
                     getDR().setRightPlace(true);
                 }
-                rubic.x();
+                rubik.x();
             }
             if (max == 4) return;
         }
@@ -238,7 +238,7 @@ public class Algorithm {
         //пробуем поставить правильным местом
         for (int i = 0; i < 8; i++) {
             if (getDR().isRightPlace()) {
-                rubic.x();
+                rubik.x();
                 continue;
             }
             if (getRF().getFront() == Colors.WHITE && getRF().getRight() == rightColor()) {
@@ -253,19 +253,19 @@ public class Algorithm {
             if (getDR().getDown() == Colors.WHITE && getDR().getRight() == rightColor()) {
                 getDR().setRightPlace(true);
             }
-            rubic.x();
+            rubik.x();
         }
 
         //поднимаем все наверх
         for (int i = 0; i < 8; i++) {
             whiteToUp();
-            rubic.x();
+            rubik.x();
         }
 
         //борьба с неправильно расположенными детальками
         for (int i = 0; i < 8; i++) {
             if (getUR().getRight() != Colors.WHITE && getDR().getRight() != Colors.WHITE) {
-                rubic.x();
+                rubik.x();
                 continue;
             }
             int num = 0;
@@ -276,21 +276,26 @@ public class Algorithm {
                 rotYellow();
             }
             r();
-            rubic.x();
+            rubik.x();
             whiteToUp();
-            rubic.xRev();
+            rubik.xRev();
             d(4 - num);
-            rubic.x();
+            rubik.x();
+        }
+
+        for (int i = 0; i < 8; i++) {
+            whiteToUp();
+            rubik.x();
         }
 
         //опускаем вниз
         for (int i = 0; i < 4; i++) {
             if (getDR().isRightPlace()) {
-                rubic.x();
+                rubik.x();
                 continue;
             }
             whiteToDown();
-            rubic.x();
+            rubik.x();
         }
 
         if (!getDR().isRightPlace() || !getDL().isRightPlace() || !getDF().isRightPlace() || !getDB().isRightPlace()) {
@@ -308,7 +313,7 @@ public class Algorithm {
                 if (!getDRF().isRightPlace()) {
                     placeCornerFromUp();
                 }
-                rubic.x();
+                rubik.x();
             }
 
             for (int i = 0; i < 4; i++) {
@@ -316,7 +321,7 @@ public class Algorithm {
                     rightHand();
                     break ;
                 }
-                rubic.x();
+                rubik.x();
             }
         }
     }
@@ -330,7 +335,7 @@ public class Algorithm {
                 if (!getRF().isRightPlace()) {
                     placeSecondFromUp();
                 }
-                rubic.x();
+                rubik.x();
             }
 
             for (int i = 0; i < 4; i++) {
@@ -339,7 +344,7 @@ public class Algorithm {
                     leftHand();
                     break ;
                 }
-                rubic.x();
+                rubik.x();
             }
         }
     }
@@ -349,6 +354,9 @@ public class Algorithm {
         placeThirdCorners();
         rotateYellowCorners();
         finalStep();
+        if (!rubik.isComplete()) {
+            throw new RuntimeException("кубик не собрался");
+        }
     }
 
     private void yellowCross() {
@@ -366,7 +374,7 @@ public class Algorithm {
             return;
         }
         if (getUF().getUp() == Colors.YELLOW && getUB().getUp() == Colors.YELLOW) {
-            rubic.x();
+            rubik.x();
         }
         if (getUR().getUp() == Colors.YELLOW && getUL().getUp() == Colors.YELLOW) {
             f();
@@ -374,7 +382,7 @@ public class Algorithm {
             fRev();
         } else {
             while (getUB().getUp() != Colors.YELLOW || getUL().getUp() != Colors.YELLOW) {
-                rubic.x();
+                rubik.x();
             }
             f();
             rightHand(2);
@@ -398,7 +406,7 @@ public class Algorithm {
                     getULB().hasColor(backColor()) && getULB().hasColor(upColor()) && getULB().hasColor(leftColor())) {
                 break ;
             }
-            rubic.x();
+            rubik.x();
         }
 
         if (!getULF().hasColor(frontColor()) || !getULF().hasColor(upColor()) || !getULF().hasColor(leftColor()))  {
@@ -419,10 +427,10 @@ public class Algorithm {
     }
 
     private void rotateYellowCorners() {
-        rubic.y();
-        rubic.y();
+        rubik.y();
+        rubik.y();
         for (int i = 0; i < 4 && getDRF().getDown() == Colors.YELLOW; i++) {
-            rubic.x();
+            rubik.x();
         }
         for (int i = 0; i < 8; i++) {
             while (getDRF().getDown() != Colors.YELLOW) {
@@ -430,8 +438,8 @@ public class Algorithm {
             }
             d();
         }
-        rubic.y();
-        rubic.y();
+        rubik.y();
+        rubik.y();
 
         if (getURF().getUp() != Colors.YELLOW || getURB().getUp() != Colors.YELLOW
                 || getULF().getUp() != Colors.YELLOW || getULB().getUp() != Colors.YELLOW ) {
@@ -442,13 +450,13 @@ public class Algorithm {
     private void finalStep() {
         for (int i = 0; i < 100 && (!haveCompleteLine() || !isComplete()); i++) {
             rightHand();
-            rubic.x();
+            rubik.x();
             leftHand();
-            rubic.xRev();
+            rubik.xRev();
             rightHand(5);
-            rubic.x();
+            rubik.x();
             leftHand(5);
-            rubic.xRev();
+            rubik.xRev();
         }
         if (!isComplete()) {
             throw new RuntimeException("java.util.Date итоге что-то не собралось...");
@@ -461,7 +469,7 @@ public class Algorithm {
             if (getURF().getFront() == color && getUF().getFront() == color && getULF().getFront() == color) {
                 return true;
             }
-            rubic.x();
+            rubik.x();
         }
         return false;
     }
@@ -670,7 +678,7 @@ public class Algorithm {
     }
 
     private void print() {
-        System.out.println(rubic.toString());
+        System.out.println(rubik.toString());
     }
 
     private void log(Colors color, boolean isRev) {
