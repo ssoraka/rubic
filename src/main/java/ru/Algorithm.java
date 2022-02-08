@@ -1,11 +1,18 @@
 package ru;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Algorithm {
     Rubic rubic;
-    Logger logger = new Logger();
+    List<String> logs = new ArrayList<>();
 
     public Algorithm(Rubic rubic) {
         this.rubic = rubic;
+    }
+
+    public List<String> getLogs() {
+        return logs;
     }
 
     private void f() {
@@ -88,14 +95,6 @@ public class Algorithm {
     private void rRev() {
         log(rightColor(), true);
         rubic.rRev();
-    }
-
-    private void log(Colors color, boolean rev) {
-        if (!rev) {
-            logger.log(color.command);
-        } else {
-            logger.log(color.command + "'");
-        }
     }
 
     private Cube getDF() {
@@ -216,8 +215,8 @@ public class Algorithm {
                 rightPos = 0;
                 if (getDR().getDown() == Colors.WHITE && getDR().getRight() == rightColor()) rightPos++;
                 if (getDL().getDown() == Colors.WHITE && getDL().getLeft() == leftColor()) rightPos++;
-                if (getDF().getDown() == Colors.WHITE && getDF().getLeft() == frontColor()) rightPos++;
-                if (getDB().getDown() == Colors.WHITE && getDB().getLeft() == backColor()) rightPos++;
+                if (getDF().getDown() == Colors.WHITE && getDF().getFront() == frontColor()) rightPos++;
+                if (getDB().getDown() == Colors.WHITE && getDB().getBack() == backColor()) rightPos++;
                 if (rightPos > max) {
                     max = rightPos;
                     rolCount = i;
@@ -591,7 +590,7 @@ public class Algorithm {
             getDRB().setRightPlace(true);
         }
         if (getDLB().getLeft() == leftColor()
-                && getDLB().getBack() == frontColor()
+                && getDLB().getBack() == backColor()
                 && getDLB().getDown() == downColor()) {
             getDLB().setRightPlace(true);
         }
@@ -674,7 +673,11 @@ public class Algorithm {
         System.out.println(rubic.toString());
     }
 
-    public void printLog() {
-        logger.printLog();
+    private void log(Colors color, boolean isRev) {
+        if (!isRev) {
+            logs.add(color.command);
+        } else {
+            logs.add(color.command + "'");
+        }
     }
 }
