@@ -57,11 +57,11 @@ public class Rubik {
     }
 
     public void d() {
-        down.rot();
+        down.rotRev();
     }
 
     public void dRev() {
-        down.rotRev();
+        down.rot();
     }
 
     public void l() {

@@ -38,11 +38,17 @@ public class Main {
             case "F" : rubik.f(); break;
             case "B" : rubik.b(); break;
             case "2D" : rubik.d(); rubik.d(); break;
+            case "2D'" : rubik.d(); rubik.d(); break;
             case "2U" : rubik.u(); rubik.u(); break;
+            case "2U'" : rubik.u(); rubik.u(); break;
             case "2L" : rubik.l(); rubik.l(); break;
+            case "2L'" : rubik.l(); rubik.l(); break;
             case "2R" : rubik.r(); rubik.r(); break;
+            case "2R'" : rubik.r(); rubik.r(); break;
             case "2F" : rubik.f(); rubik.f(); break;
+            case "2F'" : rubik.f(); rubik.f(); break;
             case "2B" : rubik.b(); rubik.b(); break;
+            case "2B'" : rubik.b(); rubik.b(); break;
             case "D'" : rubik.dRev(); break;
             case "U'" : rubik.uRev(); break;
             case "L'" : rubik.lRev(); break;

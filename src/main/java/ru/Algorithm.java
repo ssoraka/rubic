@@ -41,10 +41,8 @@ public class Algorithm {
     }
 
     private void u2() {
-        log(upColor(), false);
-        log(upColor(), false);
-        rubik.u();
-        rubik.u();
+        u();
+        u();
     }
 
     private void uRev() {
@@ -60,8 +58,7 @@ public class Algorithm {
 
     private void d(int n) {
         for (int i = 0; i < n; i++) {
-            log(downColor(), false);
-            rubik.d();
+            d();
         }
     }
 
@@ -86,10 +83,8 @@ public class Algorithm {
     }
 
     private void r2() {
-        log(rightColor(), false);
-        log(rightColor(), false);
-        rubik.r();
-        rubik.r();
+        r();
+        r();
     }
 
     private void rRev() {
@@ -279,6 +274,9 @@ public class Algorithm {
             rubik.x();
             whiteToUp();
             rubik.xRev();
+            rubik.xRev();
+            whiteToUp();
+            rubik.x();
             d(4 - num);
             rubik.x();
         }
@@ -409,6 +407,7 @@ public class Algorithm {
             rubik.x();
         }
 
+        //TODO bug
         if (!getULF().hasColor(frontColor()) || !getULF().hasColor(upColor()) || !getULF().hasColor(leftColor()))  {
             u();
             rightHand(3);
@@ -651,7 +650,7 @@ public class Algorithm {
         if (getRB().getBack() == Colors.WHITE) {
             rotYellow();
             rRev();
-            if (getRF().isRightPlace()) {
+            if (getRB().isRightPlace()) {
                 rotYellow();
                 r();
             }
