@@ -4,31 +4,56 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class Main {
-    public static void main(String[] args) {
-        String line = getCommandsForRubik(Arrays.asList(args))
-                .stream().collect(Collectors.joining(" "));
+    private static final String USAGE = "" +
+            "java Main [-v] U D ... some Rubik command ... R F B\n" +
+            "visualization flag -v" +
+            "command example: U D L R F B U' D' L' R' F' B' 2U 2D 2L 2R 2F 2B";
 
+    public static void main(String[] args) {
+        if (args == null || args.length == 0) {
+            System.out.println(USAGE);
+            return;
+        }
+
+        boolean vis = false;
+        List<String> input = Arrays.asList(args);
+        if (!input.isEmpty() && input.get(0).trim().equals("-v")) {
+            input.remove(0);
+            vis = true;
+        }
+        List<String> output = getCommandsForRubik(input);
+
+        if (vis) {
+            visualization(input, output);
+        }
+
+        String line = output.stream().collect(Collectors.joining(" "));
         if (!line.isEmpty()) {
             System.out.println(line);
         }
     }
 
+    private static void visualization(List<String> input, List<String> output) {
+        Rubik rubik = new Rubik();
+        input.stream().forEach(c -> useCommand(rubik, c.trim(), true));
+        System.out.println("start position");
+        output.stream().forEach(c -> useCommand(rubik, c.trim(), true));
+    }
+
     public static List<String> getCommandsForRubik(List<String> args) {
         Rubik rubik = new Rubik();
-        args.stream().forEach(c -> useCommand(rubik, c.trim()));
-
-        System.out.println(rubik.toString());
+        args.stream().forEach(c -> useCommand(rubik, c.trim(), false));
 
         Algorithm algorithm = new Algorithm(rubik);
         algorithm.orientationWhiteCross();
         algorithm.insertCornersInFirstLayer();
         algorithm.secondLayer();
         algorithm.thirdLayer();
-//        System.out.println(rubik.toString());
+
         return logsOptimization(algorithm.getLogs());
     }
 
-    public static void useCommand(Rubik rubik, String command) {
+    public static void useCommand(Rubik rubik, String command, boolean vis) {
         switch (command) {
             case "" : break;
             case "D" : rubik.d(); break;
@@ -52,10 +77,12 @@ public class Main {
             default:
                 throw new RuntimeException("Invalid command " + command);
         }
+        if (vis) {
+            System.out.println(rubik.toString());
+        }
     }
 
     public static List<String> logsOptimization(List<String> list) {
-//        return list;
         List<String> answer = new ArrayList<>();
 
         Deque<String> queue = new LinkedList<>(list);
@@ -77,4 +104,6 @@ public class Main {
         }
         return answer;
     }
+
+
 }
