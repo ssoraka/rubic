@@ -17,19 +17,26 @@ class Test {
             "2U", "2D", "2L", "2R", "2F", "2B"};
 
     public static void main(String[] args) {
-        test2();
+        int count = 0;
+        for (int i = 0; i < 1000; i++) {
+            count += test();
+        }
+        System.out.println("Операций в среднем " + (count / 1000));
     }
 
-    private static void test() {
+    private static int test() {
+        int count = 0;
         List<String> strings = generateCommands(random.nextInt(30));
         System.out.println(strings.stream().collect(Collectors.joining(" ")));
         List<String> commandsForRubik = Main.getCommandsForRubik(strings);
+        count = commandsForRubik.size();
         System.out.println(commandsForRubik.stream().collect(Collectors.joining(" ")));
         System.out.println(commandsForRubik.size());
 
         strings.addAll(commandsForRubik);
         commandsForRubik = Main.getCommandsForRubik(strings);
-//        Assert.that(commandsForRubik.isEmpty(), "bad");
+        Assert.that(commandsForRubik.isEmpty(), "bad");
+        return count;
     }
 
     private static void test2() {
@@ -48,26 +55,6 @@ class Test {
 //        List<String> commandsForRubik2 = Main.getCommandsForRubik(strings2);
 //        System.out.println(commandsForRubik2.stream().collect(Collectors.joining(" ")));
     }
-
-//        GYY
-//        YYY
-//        OYB
-//    YOB YBR YRR GGO
-//    OOO BBB RRR GGG
-//    OOO BBB RRR GGG
-//        WWW
-//        WWW
-//        WWW
-
-//        GYY
-//        YYY
-//        OYB
-//    YOB YBR YRR GGO
-//    OOO BBB RRR GGG
-//    OOO BBB RRR GGG
-//        WWW
-//        WWW
-//        WWW
 
     private static List<String> generateCommands(int count) {
         List<String> list = new ArrayList<>(count);

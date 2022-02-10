@@ -399,6 +399,22 @@ public class Algorithm {
         }
         if (getRightThirdCornerCount() == 4) return;
 
+
+        if (getULF().hasColor(frontColor()) && getULF().hasColor(upColor()) && getULF().hasColor(leftColor())
+                && getURB().hasColor(backColor()) && getURB().hasColor(upColor()) && getURB().hasColor(rightColor())) {
+            rightHand(3);
+            leftHand(3);
+        } else if (getULB().hasColor(backColor()) && getULB().hasColor(upColor()) && getULB().hasColor(leftColor())
+                && getURF().hasColor(frontColor()) && getURF().hasColor(upColor()) && getURF().hasColor(rightColor())) {
+            rubik.x();
+            rightHand(3);
+            leftHand(3);
+        }
+
+        for (int i = 0; i < 4 && getRightThirdCornerCount() < 2 ; i++) {
+            u();
+        }
+
         for (int i = 0; i < 4; i++) {
             if (getULF().hasColor(frontColor()) && getULF().hasColor(upColor()) && getULF().hasColor(leftColor()) &&
                     getULB().hasColor(backColor()) && getULB().hasColor(upColor()) && getULB().hasColor(leftColor())) {
@@ -407,16 +423,10 @@ public class Algorithm {
             rubik.x();
         }
 
-        //TODO bug
-        if (!getULF().hasColor(frontColor()) || !getULF().hasColor(upColor()) || !getULF().hasColor(leftColor()))  {
-            u();
-            rightHand(3);
-            leftHand(3);
-        }
         rightHand(3);
         leftHand(3);
 
-        for (int i = 0; i < 4 && getRightThirdCornerCount() < 4 ; i++) {
+        for (int i = 0; i < 4 && getRightThirdCornerCount() < 2 ; i++) {
             u();
         }
 
@@ -424,6 +434,8 @@ public class Algorithm {
             throw new RuntimeException("не проставились желтые углы по своим местам");
         }
     }
+
+
 
     private void rotateYellowCorners() {
         rubik.y();

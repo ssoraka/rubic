@@ -38,17 +38,11 @@ public class Main {
             case "F" : rubik.f(); break;
             case "B" : rubik.b(); break;
             case "2D" : rubik.d(); rubik.d(); break;
-            case "2D'" : rubik.d(); rubik.d(); break;
             case "2U" : rubik.u(); rubik.u(); break;
-            case "2U'" : rubik.u(); rubik.u(); break;
             case "2L" : rubik.l(); rubik.l(); break;
-            case "2L'" : rubik.l(); rubik.l(); break;
             case "2R" : rubik.r(); rubik.r(); break;
-            case "2R'" : rubik.r(); rubik.r(); break;
             case "2F" : rubik.f(); rubik.f(); break;
-            case "2F'" : rubik.f(); rubik.f(); break;
             case "2B" : rubik.b(); rubik.b(); break;
-            case "2B'" : rubik.b(); rubik.b(); break;
             case "D'" : rubik.dRev(); break;
             case "U'" : rubik.uRev(); break;
             case "L'" : rubik.lRev(); break;
@@ -61,26 +55,26 @@ public class Main {
     }
 
     public static List<String> logsOptimization(List<String> list) {
-        return list;
-//        List<String> answer = new ArrayList<>();
-//
-//        Deque<String> queue = new LinkedList<>(list);
-//        while (queue.size() > 0) {
-//            int count = 1;
-//            String command = queue.pop();
-//            for (int i = 0; i < 3; i++) {
-//                if (queue.size() > 0 && command.equals(queue.peekFirst())) {
-//                    queue.pop();
-//                    count++;
-//                } else {
-//                    break ;
-//                }
-//            }
-//            if (count == 4) continue;
-//            if (count == 3) answer.add(command.concat("'").replace("''", ""));
-//            if (count == 2) answer.add("2" + command.replace("''", ""));
-//            if (count == 1) answer.add(command);
-//        }
-//        return answer;
+//        return list;
+        List<String> answer = new ArrayList<>();
+
+        Deque<String> queue = new LinkedList<>(list);
+        while (queue.size() > 0) {
+            int count = 1;
+            String command = queue.pop();
+            for (int i = 0; i < 3; i++) {
+                if (queue.size() > 0 && command.equals(queue.peekFirst())) {
+                    queue.pop();
+                    count++;
+                } else {
+                    break ;
+                }
+            }
+            if (count == 4) continue;
+            if (count == 3) answer.add(command.concat("'").replace("''", ""));
+            if (count == 2) answer.add("2" + command.replaceAll("'", ""));
+            if (count == 1) answer.add(command);
+        }
+        return answer;
     }
 }
