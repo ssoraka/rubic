@@ -1,7 +1,7 @@
 package ru;
 
-import com.sun.xml.internal.ws.api.model.wsdl.WSDLPortType;
-import sun.jvm.hotspot.utilities.Assert;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -9,19 +9,21 @@ import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
 
-class Test {
+class MainTest {
     private static Random random = new Random();
     private static String[] commands = {
             "U", "D", "L", "R", "F", "B",
             "U'", "D'", "L'", "R'", "F'", "B'",
             "2U", "2D", "2L", "2R", "2F", "2B"};
 
-    public static void main(String[] args) {
+    @Test
+    void useCommandTest() {
         int count = 0;
-        for (int i = 0; i < 1000; i++) {
+        int n = 10;
+        for (int i = 0; i < n; i++) {
             count += test();
         }
-        System.out.println("Операций в среднем " + (count / 1000));
+        System.out.println("Операций в среднем " + (count / n));
     }
 
     private static int test() {
@@ -35,7 +37,8 @@ class Test {
 
         strings.addAll(commandsForRubik);
         commandsForRubik = Main.getCommandsForRubik(strings);
-        Assert.that(commandsForRubik.isEmpty(), "bad");
+
+        Assertions.assertTrue(commandsForRubik.isEmpty());
         return count;
     }
 
@@ -55,6 +58,7 @@ class Test {
 //        List<String> commandsForRubik2 = Main.getCommandsForRubik(strings2);
 //        System.out.println(commandsForRubik2.stream().collect(Collectors.joining(" ")));
     }
+
 
     private static List<String> generateCommands(int count) {
         List<String> list = new ArrayList<>(count);

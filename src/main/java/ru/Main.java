@@ -5,8 +5,8 @@ import java.util.stream.Collectors;
 
 public class Main {
     private static final String USAGE = "" +
-            "java Main [-v] U D ... some Rubik command ... R F B\n" +
-            "visualization flag -v" +
+            "java -jar rubik.jar [-v] U D ... some Rubik command ... R F B\n" +
+            "visualization flag -v\n" +
             "command example: U D L R F B U' D' L' R' F' B' 2U 2D 2L 2R 2F 2B";
 
     public static void main(String[] args) {
@@ -16,7 +16,7 @@ public class Main {
         }
 
         boolean vis = false;
-        List<String> input = Arrays.asList(args);
+        List<String> input = new ArrayList<>(Arrays.asList(args));
         if (!input.isEmpty() && input.get(0).trim().equals("-v")) {
             input.remove(0);
             vis = true;
@@ -75,7 +75,7 @@ public class Main {
             case "F'" : rubik.fRev(); break;
             case "B'" : rubik.bRev(); break;
             default:
-                throw new RuntimeException("Invalid command " + command);
+                throw new UnsupportedOperationException("Invalid command " + command);
         }
         if (vis) {
             System.out.println(rubik.toString());
