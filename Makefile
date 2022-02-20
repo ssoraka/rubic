@@ -10,7 +10,7 @@ NAME = ./target/rubik.jar
 all: $(NAME)
 
 $(NAME):
-	mvn clean install package
+	mvn install package
 
 clean:
 	mvn clean

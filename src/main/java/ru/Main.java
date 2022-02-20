@@ -16,7 +16,11 @@ public class Main {
         }
 
         boolean vis = false;
-        List<String> input = new ArrayList<>(Arrays.asList(args));
+        List<String> input = Arrays.asList(args).stream()
+                .flatMap(s -> Arrays.stream(s.split("\\s+")))
+                .filter(s -> !s.isEmpty())
+                .collect(Collectors.toList());
+        input = new ArrayList<>(input);
         if (!input.isEmpty() && input.get(0).trim().equals("-v")) {
             input.remove(0);
             vis = true;
