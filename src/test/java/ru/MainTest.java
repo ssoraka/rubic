@@ -17,7 +17,7 @@ class MainTest {
             "2U", "2D", "2L", "2R", "2F", "2B"};
 
     @Test
-    void useCommandTest() {
+    void useCommandTestCase() {
         int count = 0;
         int n = 10;
         for (int i = 0; i < n; i++) {
