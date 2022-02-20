@@ -19,7 +19,7 @@ class MainTest {
     @Test
     void useCommandTestCase() {
         int count = 0;
-        int n = 10;
+        int n = 1000;
         for (int i = 0; i < n; i++) {
             count += test();
         }
